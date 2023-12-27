@@ -2,6 +2,7 @@ import { ReactNode, useEffect, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { Toaster } from "@/components/ui/sonner";
 
 const DashboardLayout = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
@@ -40,7 +41,12 @@ const DashboardLayout = ({ children }: { children: ReactNode }) => {
           </Avatar>
         </div>
       </div>
-      {mounted && <div className="mx-6 my-3">{children}</div>}
+      {mounted && (
+        <div className="mx-6 my-3">
+          {children}
+          <Toaster richColors />
+        </div>
+      )}
     </>
   );
 };

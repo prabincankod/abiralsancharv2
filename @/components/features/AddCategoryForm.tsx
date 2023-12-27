@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -16,6 +15,8 @@ import { Textarea } from "../ui/textarea";
 import { Checkbox } from "../ui/checkbox";
 import { useMutation } from "@tanstack/react-query";
 import { Loader, PlusCircle } from "lucide-react";
+import { fetchApi } from "@/lib/utils";
+import { toast } from "sonner";
 
 const AddCategoryFormSchema = z.object({
   name: z.string(),
@@ -40,22 +41,22 @@ const AddCategoryForm = ({ onSuccessFulSubmit }: IProps) => {
   const mutateAddCategory = useMutation({
     mutationKey: ["newsportal", "categories"],
     mutationFn: (data: Category) => {
-      return fetch(
-        "https://jsugauta1.pythonanywhere.com/newsportal/categories/",
-        {
-          headers: {
-            "content-type": "application/json",
-          },
-          method: "POST",
-          body: JSON.stringify(data),
-        },
-      ).then((data) => data.json()) as unknown as Promise<Category | Error>;
+      return fetchApi<Category[]>("/newsportal/categories/", {
+        method: "POST",
+        body: data,
+      });
     },
     onSuccess: () => {
       onSuccessFulSubmit();
+      toast.success("Wohoo!", {
+        description: "Category Created Successfully",
+      });
     },
     onError: (error) => {
-      console.log(error);
+      console.log(error.message);
+      toast.error("Whoops!", {
+        description: error.message,
+      });
     },
   });
 
