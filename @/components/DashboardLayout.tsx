@@ -1,7 +1,11 @@
-import { ReactNode } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
 const DashboardLayout = ({ children }: { children: ReactNode }) => {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
   return (
     <>
       <div className="flex flex-row items-center justify-between bg-primary-foreground px-4 py-2">
@@ -13,7 +17,7 @@ const DashboardLayout = ({ children }: { children: ReactNode }) => {
           </Avatar>
         </div>
       </div>
-      <div className="mx-6 my-3">{children}</div>
+      {mounted && <div className="mx-6 my-3">{children}</div>}
     </>
   );
 };

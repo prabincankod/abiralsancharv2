@@ -7,38 +7,43 @@ import { useQuery } from "@tanstack/react-query";
 import { PlusCircle } from "lucide-react";
 
 const ArticlePage = () => {
-    const queryArticles = useQuery({
-        queryKey: ["newsportal", "news"],
-        queryFn: () => {
-            return fetch("https://jsugauta1.pythonanywhere.com/newsportal/news/", {
-                headers: {
-                    "x-api-key": "33e90d42-8d5e-48cd-a61a-3a12dd99c559",
-                },
-                method: "GET",
-                mode: "cors",
-                credentials: "omit",
-            }).then((data) => data.json()) as unknown as Promise<Article[]>;
+  const queryArticles = useQuery({
+    queryKey: ["newsportal", "news"],
+    queryFn: () => {
+      return fetch("https://jsugauta1.pythonanywhere.com/newsportal/news/", {
+        headers: {
+          "x-api-key": "33e90d42-8d5e-48cd-a61a-3a12dd99c559",
         },
-    });
+        method: "GET",
+        mode: "cors",
+        credentials: "omit",
+      }).then((data) => data.json()) as unknown as Promise<Article[]>;
+    },
+  });
 
-    return (
-        <DashboardLayout>
-            <div className="flex flex-row my-3 justify-between items-center">
-                <div className="text-2xl font-extrabold">
-                    Articles
-                </div>
-                <Button >
-                    <PlusCircle className="mr-2" />
-                    Add Article
-                </Button>
-            </div>
-            <DataTable
-                data={queryArticles.data ?? []}
-                columns={articleColumns}
-                loading={queryArticles.isLoading}
-                actions={[{ action: 'view', handleAction: () => { console.log('implement view') } }]}
-            />
-        </DashboardLayout>
-    );
+  return (
+    <DashboardLayout>
+      <div className="my-3 flex flex-row items-center justify-between">
+        <div className="text-2xl font-extrabold">Articles</div>
+        <Button>
+          <PlusCircle className="mr-2" />
+          Add Article
+        </Button>
+      </div>
+      <DataTable
+        data={queryArticles.data ?? []}
+        columns={articleColumns}
+        loading={queryArticles.isLoading}
+        actions={[
+          {
+            action: "view",
+            handleAction: () => {
+              console.log("implement view");
+            },
+          },
+        ]}
+      />
+    </DashboardLayout>
+  );
 };
 export default ArticlePage;
