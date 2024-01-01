@@ -30,7 +30,7 @@ export default function Home(props: PropType) {
 <Navbar />
 <div className=" flex flex-col items-center lg:mx-10   ">
         {props?.posts.data &&
-         props?.posts?.data[1]?.featured_articles.map((news) => (
+         props?.posts?.data[1]?.featured_articles?.map((news) => (
             <div
               key={news.id}
               className=" flex  w-full flex-col border-b py-2 text-center"
