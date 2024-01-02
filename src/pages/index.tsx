@@ -43,7 +43,7 @@ export default function Home(props: PropType) {
             <div className="flex ">
               <div className="mx-auto flex items-center">
                 <HistoryIcon className="mr-2" />
-                {formatDistanceToNow(news.updated_at)} ago
+                {formatDistanceToNow(news.created_at)} ago
               </div>
             </div>
           </div>
@@ -60,7 +60,6 @@ export async function getStaticProps() {
     })
   ).json()) as HomePageResponse;
 
-  console.log(posts);
   return {
     props: {
       posts,
