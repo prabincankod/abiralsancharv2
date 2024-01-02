@@ -6,6 +6,7 @@ import Image from "next/image";
 import { HomePageResponse } from "~/types";
 import Navbar from "@/components/Navbar";
 import { HistoryIcon } from "lucide-react";
+import {formatDistanceToNow} from 'date-fns'
 
 type PropType = InferGetStaticPropsType<typeof getStaticProps>;
 
@@ -29,8 +30,7 @@ export default function Home(props: PropType) {
       </div>
 <Navbar />
 <div className=" flex flex-col items-center lg:mx-10   ">
-        {props?.posts.data &&
-         props?.posts?.data[1]?.featured_articles?.map((news) => (
+        {props?.posts?.data[1]?.featured_articles?.map((news) => (
             <div
               key={news.id}
               className=" flex  w-full flex-col border-b py-2 text-center"
@@ -41,7 +41,7 @@ export default function Home(props: PropType) {
               <div className="flex ">
                 <div className="mx-auto flex items-center">
                   <HistoryIcon className="mr-2" />
-              
+              {formatDistanceToNow(news.updated_at)} ago
                 </div>
               </div>
             </div>
