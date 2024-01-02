@@ -10,9 +10,9 @@ const Navbar = () => {
       <div className="hamburger block md:hidden">
         <Sheet>
           <SheetTrigger asChild>
-            <Button variant="outline">
-              <Menu />
-            </Button>
+
+              <Menu className="hover:cursor-pointer" />
+
           </SheetTrigger>
           <SheetContent className="w-3/6">
           <div className="flex flex-col text-center">

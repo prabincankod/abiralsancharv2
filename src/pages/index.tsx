@@ -37,7 +37,7 @@ export default function Home(props: PropType) {
             key={news.id}
             className=" flex  w-full flex-col border-b py-2 text-center"
           >
-            <div className="lg:5xl mt-2 text-xl font-medium md:text-3xl">
+            <div className="lg:5xl mt-2 text-xl font-medium md:text-3xl hover:text-primary transition duration-300 delay-150 hover:cursor-pointer">
               {news.title}
             </div>
             <div className="flex mt-2">
