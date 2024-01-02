@@ -14,8 +14,12 @@ const Navbar = () => {
               <Menu />
             </Button>
           </SheetTrigger>
-          <SheetContent>
-            <div className="grid gap-4 py-4"></div>
+          <SheetContent className="w-3/6">
+          <div className="flex flex-col text-center">
+              <div className=" text-2xl font-bold">
+                Abiral<span className="text-primary">Sanchar</span>
+              </div>
+            </div>
           </SheetContent>
         </Sheet>
       </div>

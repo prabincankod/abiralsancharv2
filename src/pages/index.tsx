@@ -40,7 +40,7 @@ export default function Home(props: PropType) {
             <div className="lg:5xl mt-2 text-xl font-medium md:text-3xl">
               {news.title}
             </div>
-            <div className="flex ">
+            <div className="flex mt-2">
               <div className="mx-auto flex items-center">
                 <HistoryIcon className="mr-2" />
                 {formatDistanceToNow(news.created_at)} ago
