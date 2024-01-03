@@ -10,12 +10,10 @@ const Navbar = () => {
       <div className="hamburger block md:hidden">
         <Sheet>
           <SheetTrigger asChild>
-
-              <Menu className="hover:cursor-pointer" />
-
+            <Menu className="hover:cursor-pointer" />
           </SheetTrigger>
           <SheetContent className="w-3/6">
-          <div className="flex flex-col text-center">
+            <div className="flex flex-col text-center">
               <div className=" text-2xl font-bold">
                 Abiral<span className="text-primary">Sanchar</span>
               </div>

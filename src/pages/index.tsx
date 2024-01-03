@@ -5,8 +5,16 @@ import { Article } from "@/components/articles.columns";
 import Image from "next/image";
 import { HomePageResponse } from "~/types";
 import Navbar from "@/components/Navbar";
-import { HistoryIcon } from "lucide-react";
+import {  ArrowRight, HistoryIcon } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import { Card, CardContent } from "@/components/ui/card";
 
 type PropType = InferGetStaticPropsType<typeof getStaticProps>;
 
@@ -37,10 +45,10 @@ export default function Home(props: PropType) {
             key={news.id}
             className=" flex  w-full flex-col border-b py-2 text-center"
           >
-            <div className="lg:5xl mt-2 text-xl font-medium md:text-3xl hover:text-primary transition duration-300 delay-150 hover:cursor-pointer">
+            <div className="lg:5xl mt-2 text-xl font-medium transition delay-150 duration-300 hover:cursor-pointer hover:text-primary md:text-3xl">
               {news.title}
             </div>
-            <div className="flex mt-2">
+            <div className="mt-2 flex">
               <div className="mx-auto flex items-center">
                 <HistoryIcon className="mr-2" />
                 {formatDistanceToNow(news.created_at)} ago
@@ -48,6 +56,46 @@ export default function Home(props: PropType) {
             </div>
           </div>
         ))}
+      </div>
+
+      <div className="bg-muted-foreground opacity-80 px-4 py-10 ">
+        <div className="flex flex-row items-center justify-between">
+          <div className="text-2xl font-bold text-secondary">Categories</div>
+          <div className="text-2xl font-bold text-secondary">
+            <ArrowRight />
+          </div>
+        </div>
+
+        <div className=" mt-2 flex flex-col items-center">
+          <Carousel
+            className="w-full min-w-md max-w-lg" 
+
+            opts={{
+    align: "start",
+    loop: true,
+  }}
+          >
+            <CarouselContent>
+              {props.posts.data[0]?.navbar_category?.map((category) => (
+                <CarouselItem key={category.slug} className="md:basis-1/2  lg:basis-1/3  text-center">
+                  <div className="p-1">
+                    <Card>
+                      <CardContent  className="flex border-dotted aspect-square items-center justify-center p-6  bg-cover bg-[url('https://www.onlinekhabar.com/wp-content/uploads/2023/12/Rolls-Royce-Mini-Nuclear-Plant-768x432.jpg')]">
+                        
+                      </CardContent>
+                      
+                    </Card>
+                    <span className="sm-xl w-24 text-primary-foreground font-semibold">{category.title}
+
+                    </span>
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious />
+            <CarouselNext />
+          </Carousel>
+        </div>
       </div>
     </>
   );
