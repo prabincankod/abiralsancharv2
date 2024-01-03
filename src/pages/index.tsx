@@ -1,20 +1,14 @@
 import Head from "next/head";
 import type { InferGetStaticPropsType } from "next";
 import NepaliDate from "nepali-date-converter";
-import { Article } from "@/components/articles.columns";
 import Image from "next/image";
 import { HomePageResponse } from "~/types";
 import Navbar from "@/components/Navbar";
-import {  ArrowRight, HistoryIcon } from "lucide-react";
+import { ArrowRight, HistoryIcon, Menu, User, UserCircle } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
-import { Card, CardContent } from "@/components/ui/card";
+
+import CategoryCarousel from "@/components/CategoryCarousel";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 type PropType = InferGetStaticPropsType<typeof getStaticProps>;
 
@@ -27,26 +21,49 @@ export default function Home(props: PropType) {
         <link rel="icon" href="https://fav.farm/📢" />
       </Head>
 
-      <div className="flex flex-col items-center  p-4  sm:items-center md:text-center lg:items-start lg:pl-12 ">
-        <div className="text-4xl font-extrabold">
+      <div className="flex flex-row items-center  justify-between  p-4  ">
+        <div className="hamburger block md:hidden">
+          <UserCircle />
+        </div>
+        <div className="text-4xl ">
           <Image
             src="https://www.abiralsanchar.com/_next/static/media/abiralsancharlogo.aa7052d0.svg"
             alt="Abiral Sanchar Logo"
             width={200}
             height={200}
           />
+          <div className="text-base  text-center font-khand ">
+            {new NepaliDate(new Date()).toString()}
+          </div>
         </div>
-        <div className="text-sm ">{new NepaliDate(new Date()).toString()}</div>
+        <div className="hamburger block md:hidden">
+          <Sheet>
+            <SheetTrigger asChild>
+              <Menu className="hover:cursor-pointer" />
+            </SheetTrigger>
+            <SheetContent className="w-3/6">
+              <div className="flex flex-col text-center">
+                <div className=" text-2xl font-khand font-bold">
+                  Abiral<span className="text-primary">Sanchar</span>
+                </div>
+              </div>
+            </SheetContent>
+          </Sheet>
+        </div>
       </div>
+
+      <div className="hidden md:block">
+
       <Navbar />
-      <div className=" flex flex-col items-center lg:mx-10   ">
+      </div>
+      <div className=" flex flex-col items-center  mx-10   ">
         {props?.posts?.data[1]?.featured_articles?.map((news) => (
           <div
             key={news.id}
             className=" flex  w-full flex-col border-b py-2 text-center"
           >
-            <div className="lg:5xl mt-2 text-xl font-medium transition delay-150 duration-300 hover:cursor-pointer hover:text-primary md:text-3xl">
-              {news.title}
+            <div className="lg:text-5xl mt-2 text-2xl font-extrabold font-mono transition delay-150 duration-300 hover:cursor-pointer hover:text-primary md:text-3xl">
+              {news.title} Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eius voluptates veritatis nulla doloremque voluptas repellat modi ut est quis, magni cumque dolor 
             </div>
             <div className="mt-2 flex">
               <div className="mx-auto flex items-center">
@@ -58,7 +75,13 @@ export default function Home(props: PropType) {
         ))}
       </div>
 
-      <div className="bg-muted-foreground opacity-80 px-4 py-10 ">
+
+<div className="flex flex-row">
+<div className="font-khand text-3xl">समाचार</div>
+</div>
+
+
+      {/* <div className="bg-muted-foreground opacity-80  px-6 md:px-14 py-10 ">
         <div className="flex flex-row items-center justify-between">
           <div className="text-2xl font-bold text-secondary">Categories</div>
           <div className="text-2xl font-bold text-secondary">
@@ -66,37 +89,8 @@ export default function Home(props: PropType) {
           </div>
         </div>
 
-        <div className=" mt-2 flex flex-col items-center">
-          <Carousel
-            className="w-full min-w-md max-w-lg" 
-
-            opts={{
-    align: "start",
-    loop: true,
-  }}
-          >
-            <CarouselContent>
-              {props.posts.data[0]?.navbar_category?.map((category) => (
-                <CarouselItem key={category.slug} className="md:basis-1/2  lg:basis-1/3  text-center">
-                  <div className="p-1">
-                    <Card>
-                      <CardContent  className="flex border-dotted aspect-square items-center justify-center p-6  bg-cover bg-[url('https://www.onlinekhabar.com/wp-content/uploads/2023/12/Rolls-Royce-Mini-Nuclear-Plant-768x432.jpg')]">
-                        
-                      </CardContent>
-                      
-                    </Card>
-                    <span className="sm-xl w-24 text-primary-foreground font-semibold">{category.title}
-
-                    </span>
-                  </div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious />
-            <CarouselNext />
-          </Carousel>
-        </div>
-      </div>
+        <CategoryCarousel posts={props.posts} />
+      </div> */}
     </>
   );
 }
