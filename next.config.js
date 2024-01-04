@@ -6,8 +6,9 @@ await import("./src/env.js");
 
 /** @type {import("next").NextConfig} */
 const config = {
-  reactStrictMode: true,
+  reactStrictMode: false,
 
+images:{remotePatterns:[{hostname:'www.onlinekhabar.com'}]},
   /**
    * If you are using `appDir` then you must comment the below `i18n` config out.
    *

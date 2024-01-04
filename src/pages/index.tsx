@@ -7,7 +7,6 @@ import Navbar from "@/components/Navbar";
 import { ArrowRight, HistoryIcon, Menu, User, UserCircle } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
 
-import CategoryCarousel from "@/components/CategoryCarousel";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 type PropType = InferGetStaticPropsType<typeof getStaticProps>;
@@ -32,7 +31,7 @@ export default function Home(props: PropType) {
             width={200}
             height={200}
           />
-          <div className="text-base  text-center font-khand ">
+          <div className="text-center  font-khand text-base ">
             {new NepaliDate(new Date()).toString()}
           </div>
         </div>
@@ -43,7 +42,7 @@ export default function Home(props: PropType) {
             </SheetTrigger>
             <SheetContent className="w-3/6">
               <div className="flex flex-col text-center">
-                <div className=" text-2xl font-khand font-bold">
+                <div className=" font-khand text-2xl font-bold">
                   Abiral<span className="text-primary">Sanchar</span>
                 </div>
               </div>
@@ -53,17 +52,16 @@ export default function Home(props: PropType) {
       </div>
 
       <div className="hidden md:block">
-
-      <Navbar />
+        <Navbar />
       </div>
-      <div className=" flex flex-col items-center  mx-10   ">
+      <div className=" mx-10 flex flex-col  items-center   ">
         {props?.posts?.data[1]?.featured_articles?.map((news) => (
           <div
             key={news.id}
             className=" flex  w-full flex-col border-b py-2 text-center"
           >
-            <div className="lg:text-5xl mt-2 text-2xl font-extrabold font-mono transition delay-150 duration-300 hover:cursor-pointer hover:text-primary md:text-3xl">
-              {news.title} Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eius voluptates veritatis nulla doloremque voluptas repellat modi ut est quis, magni cumque dolor 
+            <div className="mt-2 font-khand text-2xl font-extrabold transition delay-150 duration-300 hover:cursor-pointer hover:text-primary md:text-3xl ">
+              {news.title} 
             </div>
             <div className="mt-2 flex">
               <div className="mx-auto flex items-center">
@@ -76,21 +74,81 @@ export default function Home(props: PropType) {
       </div>
 
 
-<div className="flex flex-row">
-<div className="font-khand text-3xl">समाचार</div>
-</div>
+      {props.posts.data[4]?.articles_categorized?.category_article_data.map(category => (
 
+        <div className="px-4 py-4">
+          <div className="flex flex-row justify-between ">
+            <div className="font-khand text-primary text-3xl">{category.category_title}</div>
+            <ArrowRight className="text-primary" />
+          </div>
+          <div className="news-section">
+            <div className="main-news flex flex-col items-center md:items-stretch md:flex-row  ">
+              <Image
+                alt="Hello"
+                src={'https://www.onlinekhabar.com/wp-content/uploads/2024/01/Madhav-nepal-3-768x512.jpg'}
+                width={500}
+                height={500}
+              />
+              <div className="title-desc text-center pt-2  font-khand text-3xl w-[500px] bg-primary-foreground flex items-center justify-center">
+                {category.articles[0]?.title}
+              </div>
+              <div className="remaining-news-hidden-sm  gap-3 hidden xl:flex  xl:flex-col ml-2 ">
+                {category.articles.map(news => (
+                  <div className="news flex items-start">
+                    <img src="https://www.onlinekhabar.com/wp-content/uploads/2024/01/Madhav-nepal-3-768x512.jpg" className="w-30 h-24 rounded-sm" />
+                    <span className="ml-2 hover: "> {news.title} </span>
+                  </div>
+                ))}
+              </div>
 
-      {/* <div className="bg-muted-foreground opacity-80  px-6 md:px-14 py-10 ">
-        <div className="flex flex-row items-center justify-between">
-          <div className="text-2xl font-bold text-secondary">Categories</div>
-          <div className="text-2xl font-bold text-secondary">
-            <ArrowRight />
+              <div className="remaining-news-hidden-md md:hidden flex gap-3 flex-col mt-2 ml-2 ">
+                {category.articles.map(news => (
+                  <div className="news flex items-center">
+                    <img src="https://www.onlinekhabar.com/wp-content/uploads/2024/01/Madhav-nepal-3-768x512.jpg" className="w-30 h-24 rounded-sm" />
+                    <span className="ml-2 hover:text-primary"> {news.title}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
+      ))}
 
-        <CategoryCarousel posts={props.posts} />
+      {/* <div className="px-4 py-4">
+        <div className="flex flex-row justify-between ">
+          <div className="font-khand text-primary text-3xl">समाचार</div>
+          <ArrowRight className="text-primary" />
+        </div>
+        <div className="news-section">
+          <div className="main-news flex flex-col items-center md:items-stretch md:flex-row  ">
+            <Image
+              alt="Hello"
+              src={'https://www.onlinekhabar.com/wp-content/uploads/2024/01/Madhav-nepal-3-768x512.jpg'}
+              width={500}
+              height={500}
+            />
+            <div className="title-desc text-center pt-2  font-khand text-3xl w-[500px] bg-primary-foreground flex items-center justify-center">
+              ‘कहिले प्रधानमन्त्री बन्ने पालो आउँछ भन्नेमा मेरो ध्यान छैन’
+            </div>
+
+            <div className="remaining-news-hidden-sm hidden xl:flex  xl:flex-col ml-2 ">
+              <div className="news flex items-start">
+                <img src="https://www.onlinekhabar.com/wp-content/uploads/2024/01/Madhav-nepal-3-768x512.jpg" className="w-30 h-24 rounded-sm" />
+                <span className="ml-2 hover: "> जनकपुरमा अख्तियार प्रमुखलाई प्रश्न : गोदाममा थन्किएको ५ हजार साइकल के गर्ने ?</span>
+              </div>
+            </div>
+
+            <div className="remaining-news-hidden-md md:hidden flex  flex-col mt-2 ml-2 ">
+              <div className="news flex items-center">
+                <img src="https://www.onlinekhabar.com/wp-content/uploads/2024/01/Madhav-nepal-3-768x512.jpg" className="w-30 h-24 rounded-sm" />
+                <span className="ml-2 hover:text-primary"> रमा अख्तियार प्रमुखलाई प्रश्न : गोदाममा थन्किएको ५ हजार साइकल के गर्ने ?</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div> */}
+
+
     </>
   );
 }
@@ -102,6 +160,7 @@ export async function getStaticProps() {
     })
   ).json()) as HomePageResponse;
 
+  console.log(posts.data[1]?.featured_articles)
   return {
     props: {
       posts,
